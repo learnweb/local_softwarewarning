@@ -1,0 +1,13 @@
+<div id="banner-parent">
+    {{#href}}<a class="softwarewarning-banner" data-severity="{{severity}}" href="{{{href}}}">{{/href}}
+    {{^href}}<span class="softwarewarning-banner" data-severity="{{severity}}">{{/href}}
+    {{{text}}}
+    {{# closable }}
+        <button type="button" class="ml-auto align-self-baseline close" data-dismiss="banner" aria-label="Dismiss the banner">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    {{/ closable }}
+    {{^href}}</span>{{/href}}
+    {{#href}}</a>{{/href}}
+    <div style="width: 100%; height: 40px; flex-shrink: 0"></div>
+</div>

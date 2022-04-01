@@ -1,0 +1,35 @@
+body.withbanner nav#main-menu {
+    top: 40px;
+}
+
+body.withbanner .softwarewarning-banner {
+    position: fixed;
+    display: block;
+    z-index: 100;
+    width: 100%;
+    font-size: 1.1em;
+    height: 40px;
+    text-align: center;
+    padding: 0.5em;
+}
+
+body.withbanner .softwarewarning-banner .close {
+    color: inherit;
+    padding: 8px;
+    margin: -8px 0;
+}
+
+.softwarewarning-banner[data-severity="info"] {
+    background-color: #107900;
+    color: #fff;
+}
+
+.softwarewarning-banner[data-severity="warn"] {
+    background-color: gold;
+    color: #000;
+}
+
+.softwarewarning-banner[data-severity="error"] {
+    background-color: #b70000;
+    color: #fff;
+}
