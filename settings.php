@@ -38,7 +38,7 @@ if ($hassiteconfig) {
         $setting = new admin_setting_configtextarea('local_softwarewarning/support',
             new lang_string('setting:supported', 'local_softwarewarning'),
             null, '{}', PARAM_TEXT);
-        $setting->set_updatedcallback("\\local_softwarewarning\\banner_manager::reset_minsupported_cache");
+        $setting->set_updatedcallback("\\local_softwarewarning\\banner_manager::reset_support_cache");
         $settings->add($setting);
         $settings->add(new admin_setting_configfile('local_softwarewarning/browscappath',
             new lang_string('setting:browscappath', 'local_softwarewarning'), '', ''));

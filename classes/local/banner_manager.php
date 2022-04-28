@@ -33,20 +33,36 @@ namespace local_softwarewarning\local;
  */
 class banner_manager {
 
-    public static function reset_minsupported_cache() {
+    /**
+     * Reset the support cache
+     * @return void
+     */
+    public static function reset_support_cache() {
         $cache = \cache::make('local_softwarewarning', 'support');
         $cache->purge();
-        self::build_minsupported_cache();
+        self::build_support_cache();
     }
 
+    /**
+     * Returns banner config for specified browser.
+     * @param string $browser Browser name to get Config for
+     * @return array|false Array of [version => bannername] (sorted descendingly), or false if no browserconfig.
+     */
     public static function get_browser_config(string $browser) {
         $cache = \cache::make('local_softwarewarning', 'support');
         if ($cache->get('build') !== true) {
-            self::build_minsupported_cache();
+            self::build_support_cache();
         }
         return $cache->get('_' . $browser);
     }
 
+    /**
+     * Returns the name of the banner that will be displayed for the given browser and version.
+     *
+     * @param string $browser The browser.
+     * @param string $version The version.
+     * @return string Name of the banner. ('supported' for no banner)
+     */
     public static function decide_banner_type(string $browser, $version) {
         $config = self::get_browser_config($browser);
         if (!$config) {
@@ -66,7 +82,11 @@ class banner_manager {
         return $lastentry;
     }
 
-    public static function build_minsupported_cache() {
+    /**
+     * Builds the support cache from the local_softwarewarning/support config.
+     * @return void
+     */
+    public static function build_support_cache() {
         $cache = \cache::make('local_softwarewarning', 'support');
         $config = get_config('local_softwarewarning', 'support');
         $cache->purge();
@@ -92,14 +112,23 @@ class banner_manager {
             $cache->set('_' . $browser, $buildconfig);
         }
         $cache->set('build', true);
-        return $array;
     }
 
+    /**
+     * Gets the banner for the current user either from cache, or recalculates it on cache miss.
+     * @return \stdClass|null the banner
+     */
     public static function get_banner() {
         $cache = \cache::make('local_softwarewarning', 'banner');
         $banner = $cache->get('banner');
         if ($banner === false) {
-            $banner = self::decide_banner();
+            $browser = get_browser();
+            if (!$browser) {
+                $banner = null;
+            } else {
+                $bannertype = self::decide_banner_type($browser->browser, $browser->majorver);
+                $banner = self::build_banner($bannertype);
+            }
             $cache->set('banner', $banner);
         }
         if ($banner !== null && $banner->closable && isset($_COOKIE['disablebrowserwarn'])) {
@@ -109,17 +138,13 @@ class banner_manager {
         return $banner;
     }
 
-    public static function decide_banner() {
-        $browser = get_browser();
-        if (!$browser) {
-            return null;
-        }
-        $bannertype = self::decide_banner_type($browser->browser, $browser->majorver);
-        return self::build_banner($bannertype);
-    }
-
+    /**
+     * Builds the banner from a specified bannertype.
+     * @param string $bannertype The bannertype.
+     * @return \stdClass|null The banner or null for no banner.
+     */
     public static function build_banner($bannertype) {
-        if ($bannertype == banner::SUPPORTED) {
+        if (!$bannertype || $bannertype == banner::SUPPORTED) {
             return null;
         }
         $banner = new \stdClass();

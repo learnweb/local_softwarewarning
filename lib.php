@@ -1,13 +1,9 @@
 <?php
 
-function decide_banner() {
-
-}
-
-function render_the_banner() {
-
-}
-
+/**
+ * Add 'withbanner' to bodyclass if banner is displayed.
+ * @return void
+ */
 function local_softwarewarning_before_http_headers() {
     global $PAGE;
     if ($PAGE->theme->name !== 'wwu2019') {
@@ -19,6 +15,10 @@ function local_softwarewarning_before_http_headers() {
     }
 }
 
+/**
+ * Display banner.
+ * @return string The banner html string.
+ */
 function local_softwarewarning_before_standard_top_of_body_html(): string {
     global $PAGE, $OUTPUT;
     if ($PAGE->theme->name !== 'wwu2019') {
