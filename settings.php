@@ -21,12 +21,19 @@
  * @copyright  2022 Justus Dieckmann WWU
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+use local_softwarewarning\banner;
+
 defined('MOODLE_INTERNAL') || die();
 global $ADMIN;
 
 if ($hassiteconfig) {
-    $settings = new admin_settingpage('local_softwarewarning', get_string('pluginname', 'local_softwarewarning'));
-
+    $category = new admin_category('local_softwarewarning_category', get_string('pluginname', 'local_softwarewarning'));
+    $ADMIN->add('localplugins', $category);
+    $settings = new admin_settingpage('local_softwarewarning', get_string('settings'));
+    $ADMIN->add('local_softwarewarning_category', $settings);
+    $ADMIN->add('local_softwarewarning_category', new admin_externalpage('local_softwarewarning_testpage',
+            get_string('testpage', 'local_softwarewarning'), '/local/softwarewarning/testpage.php'));
     if ($ADMIN->fulltree) {
         $setting = new admin_setting_configtextarea('local_softwarewarning/support',
             new lang_string('setting:supported', 'local_softwarewarning'),
@@ -36,7 +43,7 @@ if ($hassiteconfig) {
         $settings->add(new admin_setting_configfile('local_softwarewarning/browscappath',
             new lang_string('setting:browscappath', 'local_softwarewarning'), '', ''));
 
-        $banners = ['unrecognized', 'deprecated', 'unsupported'];
+        $banners = [banner::UNRECOGNIZED, banner::DEPRECATED, banner::UNSUPPORTED];
 
         foreach ($banners as $banner) {
             $settings->add(new admin_setting_heading('local_softwarewarning/banner_' . $banner,
@@ -68,5 +75,4 @@ if ($hassiteconfig) {
                 ]));
         }
     }
-    $ADMIN->add('localplugins', $settings);
 }

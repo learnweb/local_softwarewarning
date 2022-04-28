@@ -33,3 +33,5 @@ $string['setting:bannerseverityfor'] = 'Severity (color) for banner "<i>{$a}</i>
 $string['bannername:unrecognized'] = 'Unrecognized';
 $string['bannername:deprecated'] = 'Deprecated';
 $string['bannername:unsupported'] = 'Unsupported';
+$string['testpage'] = 'Testing page';
+$string['banner'] = 'Banner';

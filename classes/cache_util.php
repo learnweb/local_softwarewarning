@@ -98,7 +98,7 @@ class cache_util {
     public static function get_banner() {
         $cache = \cache::make('local_softwarewarning', 'banner');
         $banner = $cache->get('banner');
-        if ($banner === false || true) {
+        if ($banner === false) {
             $banner = self::decide_banner();
             $cache->set('banner', $banner);
         }
@@ -110,18 +110,21 @@ class cache_util {
     }
 
     public static function decide_banner() {
-        $banner = new \stdClass();
         $browser = get_browser();
         if (!$browser) {
             return null;
         }
         $bannertype = self::decide_banner_type($browser->browser, $browser->majorver);
+        return self::build_banner($bannertype);
+    }
+
+    public static function build_banner($bannertype) {
         if ($bannertype == banner::SUPPORTED) {
             return null;
         }
-
+        $banner = new \stdClass();
         $banner->text = format_text(get_config('local_softwarewarning', 'banner_' . $bannertype . '_text'),
-                FORMAT_MOODLE, ['para' => false]);
+            FORMAT_MOODLE, ['para' => false]);
         $banner->closable = get_config('local_softwarewarning', 'banner_' . $bannertype . '_closable');
         $banner->severity = get_config('local_softwarewarning', 'banner_' . $bannertype . '_severity');
         if ($url = get_config('local_softwarewarning', 'banner_' . $bannertype . '_url')) {
