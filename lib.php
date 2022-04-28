@@ -28,7 +28,8 @@ function local_softwarewarning_before_standard_top_of_body_html(): string {
     if (!$banner) {
         return '';
     }
-
-    $PAGE->requires->js_call_amd('local_softwarewarning/banner', 'init');
+    if ($banner->closable) {
+        $PAGE->requires->js_call_amd('local_softwarewarning/banner', 'init');
+    }
     return $OUTPUT->render_from_template('local_softwarewarning/banner', $banner);
 }
