@@ -22,8 +22,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-global $CFG, $PAGE, $OUTPUT;
 require_once(__DIR__ . '/../../config.php');
+global $CFG, $PAGE, $OUTPUT;
 require_once($CFG->libdir . '/adminlib.php');
 
 admin_externalpage_setup('local_softwarewarning_testpage');
@@ -31,7 +31,7 @@ $PAGE->set_url(new moodle_url('/local/softwarewarning/testpage.php'));
 $browser = get_browser();
 $mform = new \local_softwarewarning\local\form\form_manualbanner();
 if ($data = $mform->get_data()) {
-    $banner = \local_softwarewarning\local\banner::banners[$data->banner];
+    $banner = \local_softwarewarning\local\banner::BANNERS[$data->banner];
     $cache = \cache::make('local_softwarewarning', 'banner');
     $cache->set('banner', \local_softwarewarning\local\banner_manager::build_banner($banner));
     redirect($PAGE->url);

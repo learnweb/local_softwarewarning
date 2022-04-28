@@ -94,7 +94,7 @@ class banner_manager {
         foreach ($array as $browser => $bconfig) {
             if (isset($bconfig['all'])) {
                 $condition = strtolower($bconfig['all']);
-                if (!in_array($condition, banner::banners)) {
+                if (!in_array($condition, banner::BANNERS)) {
                     throw new \coding_exception('condition should be unsupported or deprecated!');
                 }
                 $cache->set('_' . $browser, ['all' => $condition]);
@@ -104,7 +104,7 @@ class banner_manager {
             krsort($bconfig);
             foreach ($bconfig as $version => $condition) {
                 $condition = strtolower($condition);
-                if (!in_array($condition, banner::banners)) {
+                if (!in_array($condition, banner::BANNERS)) {
                     throw new \coding_exception('condition should be unsupported or deprecated!');
                 }
                 $buildconfig[$version] = $condition;

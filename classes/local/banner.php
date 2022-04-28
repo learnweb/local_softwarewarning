@@ -33,16 +33,21 @@ namespace local_softwarewarning\local;
  */
 class banner {
 
-   const SUPPORTED = 'supported';
-   const UNRECOGNIZED = 'unrecognized';
-   const DEPRECATED = 'deprecated';
-   const UNSUPPORTED = 'unsupported';
+    /** @var string No banner. */
+    const SUPPORTED = 'supported';
+    /** @var string Banner for unrecognized browsers. */
+    const UNRECOGNIZED = 'unrecognized';
+    /** @var string Banner for older browser versions. */
+    const DEPRECATED = 'deprecated';
+    /** @var string Banner for unsupported browsers. */
+    const UNSUPPORTED = 'unsupported';
 
-   const banners = [
-       self::SUPPORTED,
-       self::UNRECOGNIZED,
-       self::DEPRECATED,
-       self::UNSUPPORTED
-   ];
+    /** @var string[] List of all banners */
+    const BANNERS = [
+        self::SUPPORTED,
+        self::UNRECOGNIZED,
+        self::DEPRECATED,
+        self::UNSUPPORTED
+    ];
 
 }

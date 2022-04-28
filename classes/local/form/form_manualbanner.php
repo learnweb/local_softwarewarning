@@ -46,7 +46,7 @@ class form_manualbanner extends \moodleform {
         $mform->disable_form_change_checker();
 
         $mform->addElement('select', 'banner', get_string('banner', 'local_softwarewarning'),
-            banner::banners);
+            banner::BANNERS);
         $this->add_action_buttons(false, get_string('submit'));
     }
 
