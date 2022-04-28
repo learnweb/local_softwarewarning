@@ -15,23 +15,23 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Softwarewarning cache helper
+ * Banner manager
  *
  * @package   local_softwarewarning
  * @copyright 2022 Justus Dieckmann WWU
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_softwarewarning;
+namespace local_softwarewarning\local;
 
 /**
- * Softwarewarning cache helper
+ * Banner manager
  *
  * @package   local_softwarewarning
  * @copyright 2022 Justus Dieckmann WWU
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class cache_util {
+class banner_manager {
 
     public static function reset_minsupported_cache() {
         $cache = \cache::make('local_softwarewarning', 'support');

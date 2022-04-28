@@ -31,9 +31,9 @@ $PAGE->set_url(new moodle_url('/local/softwarewarning/testpage.php'));
 $browser = get_browser();
 $mform = new \local_softwarewarning\local\form\form_manualbanner();
 if ($data = $mform->get_data()) {
-    $banner = \local_softwarewarning\banner::banners[$data->banner];
+    $banner = \local_softwarewarning\local\banner::banners[$data->banner];
     $cache = \cache::make('local_softwarewarning', 'banner');
-    $cache->set('banner', \local_softwarewarning\cache_util::build_banner($banner));
+    $cache->set('banner', \local_softwarewarning\local\banner_manager::build_banner($banner));
     redirect($PAGE->url);
 }
 $action = optional_param('action', null, PARAM_ALPHA);
@@ -57,7 +57,7 @@ echo $OUTPUT->render($button);
 echo '<br><br><br>';
 
 echo "<pre>get_browser() returns: \n" . json_encode($browser, JSON_PRETTY_PRINT) . '</pre>';
-$bannertype = \local_softwarewarning\cache_util::decide_banner_type($browser->browser, $browser->majorver);
+$bannertype = \local_softwarewarning\local\banner_manager::decide_banner_type($browser->browser, $browser->majorver);
 if ($browser) {
     echo "=> Your current Browser is " . $browser->browser . ", version " . $browser->majorver .
         ", so your calculated banner would be: <b>" . $bannertype . "<b>";

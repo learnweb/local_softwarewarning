@@ -22,7 +22,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use local_softwarewarning\banner;
+use local_softwarewarning\local\banner;
 
 defined('MOODLE_INTERNAL') || die();
 global $ADMIN;
@@ -38,7 +38,7 @@ if ($hassiteconfig) {
         $setting = new admin_setting_configtextarea('local_softwarewarning/support',
             new lang_string('setting:supported', 'local_softwarewarning'),
             null, '{}', PARAM_TEXT);
-        $setting->set_updatedcallback("\\local_softwarewarning\\cache_util::reset_minsupported_cache");
+        $setting->set_updatedcallback("\\local_softwarewarning\\banner_manager::reset_minsupported_cache");
         $settings->add($setting);
         $settings->add(new admin_setting_configfile('local_softwarewarning/browscappath',
             new lang_string('setting:browscappath', 'local_softwarewarning'), '', ''));

@@ -23,7 +23,7 @@
  */
 namespace local_softwarewarning\local\form;
 
-use local_softwarewarning\banner;
+use local_softwarewarning\local\banner;
 
 defined('MOODLE_INTERNAL') || die();
 
