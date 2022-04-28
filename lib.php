@@ -29,9 +29,7 @@
  */
 function local_softwarewarning_before_http_headers() {
     global $PAGE;
-    if ($PAGE->theme->name !== 'wwu2019') {
-        return;
-    }
+    $PAGE->add_body_class('theme-' . $PAGE->theme->name);
     $banner = \local_softwarewarning\local\banner_manager::get_banner();
     if ($banner) {
         $PAGE->add_body_class('withbanner');
@@ -44,9 +42,6 @@ function local_softwarewarning_before_http_headers() {
  */
 function local_softwarewarning_before_standard_top_of_body_html(): string {
     global $PAGE, $OUTPUT;
-    if ($PAGE->theme->name !== 'wwu2019') {
-        return '';
-    }
     $banner = \local_softwarewarning\local\banner_manager::get_banner();
     if (!$banner) {
         return '';

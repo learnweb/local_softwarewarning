@@ -1,5 +1,21 @@
-body.withbanner nav#main-menu {
+body.withbanner.theme-wwu2019 #banner-parent .fill-element {
+    width: 100%;
+    height: 40px;
+    flex-shrink: 0;
+}
+
+body.withbanner.theme-wwu2019 nav#main-menu {
     top: 40px;
+}
+
+body.withbanner.theme-boost {
+    height: calc(100% - 40px);
+    transform: translateY(40px);
+    overflow: hidden;
+}
+
+body.withbanner.theme-boost #banner-parent {
+    transform: translateY(-40px);
 }
 
 body.withbanner .softwarewarning-banner {
