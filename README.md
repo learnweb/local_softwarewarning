@@ -1,1 +1,1 @@
-# local_softwarewarning
+# moodle-local_softwarewarning
