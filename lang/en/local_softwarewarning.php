@@ -35,3 +35,4 @@ $string['bannername:deprecated'] = 'Deprecated';
 $string['bannername:unsupported'] = 'Unsupported';
 $string['testpage'] = 'Testing page';
 $string['banner'] = 'Banner';
+$string['download_browscap'] = 'Download the browscap.ini';
