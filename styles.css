@@ -49,3 +49,34 @@ body.withbanner .softwarewarning-banner .close {
     background-color: #b70000;
     color: #fff;
 }
+
+/* Admin panel */
+
+body.path-admin-local-softwarewarning #local_softwarewarning-config > * {
+    margin: 0 -15px;
+    padding: 1.5em 0;
+}
+
+body.path-admin-local-softwarewarning #local_softwarewarning-config > :not(:last-child) {
+    border-bottom: 1px solid #777;
+}
+
+body.path-admin-local-softwarewarning #local_softwarewarning-config .form-control {
+    display: inline;
+}
+
+body.path-admin-local-softwarewarning #local_softwarewarning-config .form-control[size] {
+    width: auto;
+}
+
+body.path-admin-local-softwarewarning #local_softwarewarning-config .sw-onerule {
+    display: none;
+}
+
+body.path-admin-local-softwarewarning #local_softwarewarning-config > *[data-sw-onerule="true"] .sw-onerule {
+    display: unset;
+}
+
+body.path-admin-local-softwarewarning #local_softwarewarning-config > *[data-sw-onerule="true"] .sw-multirule {
+    display: none;
+}

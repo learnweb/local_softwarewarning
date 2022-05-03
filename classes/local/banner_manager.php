@@ -119,6 +119,9 @@ class banner_manager {
      * @return \stdClass|null the banner
      */
     public static function get_banner() {
+        if (get_config('local_softwarewarning', 'enabled') !== '1') {
+            return null;
+        }
         $cache = \cache::make('local_softwarewarning', 'banner');
         $banner = $cache->get('banner');
         if ($banner === false) {

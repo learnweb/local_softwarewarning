@@ -24,6 +24,6 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version  = 2022042702;
+$plugin->version  = 2022050300;
 $plugin->component = 'local_softwarewarning';
 $plugin->requires  = 2021051706.02; // Requires Moodle 3.11+

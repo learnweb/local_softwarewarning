@@ -24,6 +24,7 @@
 
 $string['pluginname'] = 'Browsersupport Warning';
 $string['setting:supported'] = 'Supported versions';
+$string['setting:enabled'] = 'Enabled?';
 $string['setting:browscappath'] = 'Path where the browscappath is';
 $string['setting:bannerheading'] = 'Information for banner "<i>{$a}</i>"';
 $string['setting:bannertextfor'] = 'Text for banner "<i>{$a}</i>"';
@@ -35,4 +36,5 @@ $string['bannername:deprecated'] = 'Deprecated';
 $string['bannername:unsupported'] = 'Unsupported';
 $string['testpage'] = 'Testing page';
 $string['banner'] = 'Banner';
+$string['setbrowserconstraints'] = 'Set Browserconstraints';
 $string['download_browscap'] = 'Download the browscap.ini';

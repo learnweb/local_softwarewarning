@@ -1,0 +1,34 @@
+{
+  "initiallyhidden": true,
+  "banners": ["supported", "unsupported", "deprecated"],
+  "browsers": [
+    {
+      "i":  0,
+      "browsername": "IE",
+      "issinglerule": true,
+      "singlebanner": "unsupported",
+      "multirulebanners": [
+        {
+          "version": "80",
+          "banner": "deprecated"
+        }
+      ]
+    },
+    {
+      "i":  1,
+      "browsername": "Firefox",
+      "issinglerule": false,
+      "singlebanner": "unsupported",
+      "multirulebanners": [
+        {
+          "version": "90",
+          "banner": "deprecated"
+        },
+        {
+          "version": "70",
+          "banner": "unsupported"
+        }
+      ]
+    }
+  ]
+}

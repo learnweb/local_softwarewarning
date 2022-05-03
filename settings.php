@@ -32,9 +32,19 @@ if ($hassiteconfig) {
     $ADMIN->add('localplugins', $category);
     $settings = new admin_settingpage('local_softwarewarning', get_string('settings'));
     $ADMIN->add('local_softwarewarning_category', $settings);
+
+    $ADMIN->add('local_softwarewarning_category', new admin_externalpage('local_softwarewarning_browserconstraints',
+        get_string('setbrowserconstraints', 'local_softwarewarning'),
+        new moodle_url('/local/softwarewarning/browserconstraints.php')));
+
     $ADMIN->add('local_softwarewarning_category', new admin_externalpage('local_softwarewarning_testpage',
-            get_string('testpage', 'local_softwarewarning'), '/local/softwarewarning/testpage.php'));
+        get_string('testpage', 'local_softwarewarning'),
+        new moodle_url('/local/softwarewarning/testpage.php')));
+
     if ($ADMIN->fulltree) {
+        $settings->add(new admin_setting_configcheckbox('local_softwarewarning/enabled',
+            new lang_string('setting:enabled', 'local_softwarewarning'), '', '0'));
+
         $setting = new admin_setting_configtextarea('local_softwarewarning/support',
             new lang_string('setting:supported', 'local_softwarewarning'),
             null, '{}', PARAM_TEXT);
