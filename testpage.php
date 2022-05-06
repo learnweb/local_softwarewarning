@@ -57,9 +57,17 @@ echo $OUTPUT->render($button);
 echo '<br><br><br>';
 
 echo "<pre>get_browser() returns: \n" . json_encode($browser, JSON_PRETTY_PRINT) . '</pre>';
-$bannertype = \local_softwarewarning\local\banner_manager::decide_banner_type($browser->browser, $browser->majorver);
 if ($browser) {
+    $bannertype = \local_softwarewarning\local\banner_manager::decide_banner_type($browser->browser, $browser->majorver);
     echo "=> Your current Browser is " . $browser->browser . ", version " . $browser->majorver .
         ", so your calculated banner would be: <b>" . $bannertype . "<b>";
+} else {
+    echo "Your browser could not be determined!<br>";
+    $ini = ini_get('browscap');
+    if ($ini) {
+        echo "browcap setting in php ini files is set to ". $ini;
+    } else {
+        echo "browcap setting in php ini files is not set!";
+    }
 }
 echo $OUTPUT->footer();
