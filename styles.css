@@ -88,3 +88,8 @@ body.path-admin-local-softwarewarning #local_softwarewarning-config > *[data-sw-
 body.path-admin-local-softwarewarning #local_softwarewarning-config > *[data-sw-empty="false"] .sw-version[data-sw-empty="true"] {
     opacity: 0.7;
 }
+
+body.path-admin-local-softwarewarning #local_softwarewarning-config .sw-delete-browser,
+body.path-admin-local-softwarewarning #local_softwarewarning-config .sw-delete-version {
+    cursor: pointer;
+}

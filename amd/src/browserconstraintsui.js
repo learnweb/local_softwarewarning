@@ -2,28 +2,49 @@
 
 import Templates from 'core/templates';
 
-let anchor, root;
+let anchor, configroot, bannertypes, defaultbrowsers;
 
 /**
  * Init
- * @param {object} config
- * @param {array} bannertypes
- * @param {array} defaultbrowsers
+ * @param {object} _config
+ * @param {array} _bannertypes
+ * @param {array} _defaultbrowsers
  */
-export async function init(config, bannertypes, defaultbrowsers) {
-    anchor = document.getElementById('local_softwarewarning-anchor');
-    root = await createBrowserconfigelement();
+export async function init(_config, _bannertypes, _defaultbrowsers) {
+    bannertypes = _bannertypes;
+    defaultbrowsers = _defaultbrowsers;
 
-    const selectEls = root.querySelectorAll('*[data-sw-selected]');
+    anchor = document.getElementById('local_softwarewarning-anchor');
+    const root = await createBrowserConfigElement(_config);
+    configroot = root.querySelector('#local_softwarewarning-config');
+    const savebtn = root.querySelector('#local_softwarewarning-save');
+
+    savebtn.onclick = () => {
+        const configjson = JSON.stringify(getConfigFromDOM());
+        const form = document.createElement('form');
+        form.method = 'post';
+        form.action = '';
+        let input = document.createElement('input');
+        input.name = 'sesskey';
+        input.value = M.cfg.sesskey;
+        form.appendChild(input);
+        input = document.createElement('input');
+        input.name = 'json';
+        input.value = configjson;
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    const selectEls = configroot.querySelectorAll('*[data-sw-selected]');
     for (let selectEl of selectEls) {
         selectEl.value = selectEl.getAttribute('data-sw-selected');
     }
 
-    root.oninput = async (e) => {
+    configroot.oninput = async (e) => {
         const target = e.target;
         const type = target.getAttribute('data-sw-type');
         const browserelement = getAncestorWithClass(target, 'sw-browser');
-        console.log(type, e.target);
         switch (type) {
             case 'name':
                 const isEmpty = target.value.length === 0;
@@ -43,14 +64,11 @@ export async function init(config, bannertypes, defaultbrowsers) {
                     await appendEmptyVersionElement(versionelement.parentElement);
                 }
                 break;
-            default:
-                console.log(type, e.target);
         }
     }
 
-    root.onclick = async (e) => {
+    configroot.onclick = async (e) => {
         const versionAncestor = getAncestorWithClass(e.target, 'sw-delete-version');
-        console.log(versionAncestor);
         if (versionAncestor != null) {
             const swverion = getAncestorWithClass(versionAncestor, 'sw-version');
             const parent = swverion.parentElement;
@@ -62,7 +80,7 @@ export async function init(config, bannertypes, defaultbrowsers) {
             const browserAncestor = getAncestorWithClass(e.target, 'sw-delete-browser');
             if (browserAncestor != null) {
                 getAncestorWithClass(browserAncestor, 'sw-browser').remove();
-                if (root.lastElementChild.getAttribute('data-sw-empty') !== 'true') {
+                if (configroot.lastElementChild.getAttribute('data-sw-empty') !== 'true') {
                     await appendEmptyBrowserElement();
                 }
             }
@@ -89,40 +107,53 @@ function getAncestorWithClass(node, theclass)  {
     return node;
 }
 
-async function createBrowserconfigelement() {
-    return await renderTemplate('local_softwarewarning/browserconfig', {
-        "banners": ["supported", "unsupported", "deprecated"],
-        "browsers": [
-            {
-                "i":  0,
-                "browsername": "IE",
-                "issinglerule": true,
-                "singlebanner": "unsupported",
-                "multirulebanners": [
-                    {
-                        "version": "80",
-                        "banner": "deprecated"
-                    }
-                ]
-            },
-            {
-                "i":  1,
-                "browsername": "Firefox",
-                "issinglerule": false,
-                "singlebanner": "unsupported",
-                "multirulebanners": [
-                    {
-                        "version": "90",
-                        "banner": "deprecated"
-                    },
-                    {
-                        "version": "70",
-                        "banner": "unsupported"
-                    }
-                ]
-            }
-        ]
+async function createBrowserConfigElement(config) {
+    const context = transformConfig(config);
+    return await renderTemplate('local_softwarewarning/browserconfig', context);
+}
+
+/**
+ *
+ * @param {Object} config
+ */
+function transformConfig(config) {
+    const browsers = [];
+    for (let browser in config) {
+        const versions = config[browser];
+        const versionsArr = [];
+        for (let version in versions) {
+            if (version === 'all')
+                continue;
+
+            versionsArr.push({
+                version: version,
+                banner: versions[version]
+            })
+        }
+        versionsArr.push({
+            version: "",
+            banner: "unrecognized"
+        })
+        browsers.push({
+            browsername: browser,
+            issinglerule: !!versions['all'],
+            singlebanner: versions['all'],
+            multirulebanners: versionsArr
+        })
+    }
+    browsers.push({
+        browsername: '',
+        issinglerule: true,
+        singlebanner: "unrecognized",
+        multirulebanners: [{
+            version: "",
+            banner: "unrecognized"
+        }]
     });
+    return {
+        "banners": bannertypes,
+        "browsers": browsers
+    };
 }
 
 async function renderTemplate(template, context) {
@@ -134,28 +165,50 @@ async function renderTemplate(template, context) {
 
 async function appendEmptyBrowserElement() {
     const node = await renderTemplate('local_softwarewarning/browserconfig_browser', {
-        "banners": ['supported', 'unsupported', 'deprecated'],
-        "i": 123,
+        "banners": bannertypes,
         "browsername": "",
         "issinglerule": true,
-        "singlebanner": "supported",
+        "singlebanner": "unrecognized",
         "multirulebanners": [
             {
                 "version": "",
-                "banner": "supported"
+                "banner": "unrecognized"
             }
         ]
     });
-    root.appendChild(node);
+    configroot.appendChild(node);
 }
 
 async function appendEmptyVersionElement(parentElement) {
-    console.log(parentElement);
     const node = await renderTemplate('local_softwarewarning/browserconfig_version', {
-        "banners": ['unrecognized', 'supported', 'unsupported', 'deprecated'],
+        "banners": bannertypes,
         "version": "",
         "banner": "unrecognized"
     });
-    console.log(node);
     parentElement.appendChild(node);
+}
+
+function getConfigFromDOM() {
+    const config = {};
+    for (let browserdom of configroot.children) {
+        const browser = browserdom.querySelector('input[data-sw-type="name"]').value;
+        if (browser.length === 0)
+            continue;
+
+        const issinglerule = browserdom.getAttribute('data-sw-singlerule') === 'true';
+        let versions = {};
+        if (issinglerule) {
+            versions['all'] = browserdom.querySelector('select[data-sw-type="singlerule"]').value;
+        } else {
+            const anchor = browserdom.querySelector('.sw-multirule-anchor');
+            for (let versiondom of anchor.children) {
+                const version = parseInt(versiondom.querySelector('input[data-sw-type="multi-version"]').value);
+                if (isNaN(version))
+                    continue;
+                versions[version] = versiondom.querySelector('select[data-sw-type="multi-banner"]').value;
+            }
+        }
+        config[browser] = versions;
+    }
+    return config;
 }

@@ -22,6 +22,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use local_softwarewarning\local\banner;
+
 require_once(__DIR__ . '/../../config.php');
 global $CFG, $PAGE, $OUTPUT;
 require_once($CFG->libdir . '/adminlib.php');
@@ -29,13 +31,44 @@ require_once($CFG->libdir . '/adminlib.php');
 admin_externalpage_setup('local_softwarewarning_browserconstraints');
 $PAGE->set_url(new moodle_url('/local/softwarewarning/browserconstraints.php'));
 
-$config = get_config('local_softwarewarning', 'support');
+$configjson = optional_param('json', null, PARAM_RAW);
+if ($configjson) {
+    require_sesskey();
+    $config = json_decode($configjson, true);
+    $validconfig = [];
+    foreach ($config as $browser => $versions) {
+        if (array_key_exists('all', $versions)) {
+            if (!in_array($versions['all'], banner::BANNERS)) {
+                throw new coding_exception("${$browser}[all] (${versions['all']} not valid banner");
+            }
+            $validconfig[$browser] = ['all' => $versions['all']];
+        } else {
+            $validconfig[$browser] = [];
+            krsort($versions);
+            foreach ($versions as $version => $banner) {
+                if (!is_number($version)) {
+                    throw new coding_exception("$version is not a valid number for $browser");
+                }
+                if (!in_array($banner, banner::BANNERS)) {
+                    throw new coding_exception("${$browser}[$version] (${$banner} not valid banner");
+                }
+                $validconfig[$browser][intval($version)] = $banner;
+            }
+            krsort($validconfig[$browser]);
+        }
+    }
+    set_config('support', json_encode($validconfig), 'local_softwarewarning');
+    \local_softwarewarning\local\banner_manager::reset_support_cache();
+    redirect($PAGE->url);
+}
 
-$PAGE->requires->js_call_amd('local_softwarewarning/browserconstraintsui', 'init', [$config, null, null]);
+$config = json_decode(get_config('local_softwarewarning', 'support'));
+
+$PAGE->requires->js_call_amd('local_softwarewarning/browserconstraintsui', 'init',
+    [$config, banner::BANNERS, ['IE', 'Chrome', 'Firefox', 'Safari', 'Opera']]);
 
 echo $OUTPUT->header();
 
 echo html_writer::div('', '', ['id' => 'local_softwarewarning-anchor']);
-
 
 echo $OUTPUT->footer();

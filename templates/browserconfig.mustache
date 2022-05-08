@@ -24,8 +24,11 @@
       "closable": false
     }
 }}
-<div id="local_softwarewarning-config" {{#initiallyhidden}}hidden{{/initiallyhidden}}>
-    {{# browsers }}
-        {{> local_softwarewarning/browserconfig_browser }}
-    {{/ browsers }}
+<div>
+    <div id="local_softwarewarning-config" {{#initiallyhidden}}hidden{{/initiallyhidden}}>
+        {{# browsers }}
+            {{> local_softwarewarning/browserconfig_browser }}
+        {{/ browsers }}
+    </div>
+    <button id="local_softwarewarning-save" class="btn btn-primary">{{#str}}save, core{{/str}}</button>
 </div>
