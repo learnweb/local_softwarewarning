@@ -25,14 +25,18 @@
     }
 }}
 <div class="py-2 sw-version" data-sw-empty="{{^version}}true{{/version}}{{#version}}false{{/version}}">
+    <label>
     Below version (inclusive)
-    <input class="form-control mx-2" size="10" type="number" id="sw-{{i}}-rule{{j}}-version" data-sw-type="multi-version" value="{{version}}">
+    <input class="form-control mx-2" size="10" type="number" data-sw-type="multi-version" value="{{version}}">
+    </label>
+    <label>
     set Banner
-    <select class="custom-select mx-2" id="sw-{{i}}-rule{{j}}-banner" data-sw-type="multi-banner" {{#banner}}data-sw-selected="{{banner}}"{{/banner}}>
+    <select class="custom-select mx-2"  data-sw-type="multi-banner" {{#banner}}data-sw-selected="{{banner}}"{{/banner}}>
     {{# banners }}
         <option value="{{.}}">{{ . }}</option>
     {{/ banners }}
     </select>
+    </label>
     <span class="sw-delete-version">
     {{#pix}} t/delete, core, Delete this section {{/pix}}
     </span>
