@@ -65,7 +65,7 @@ if ($configjson) {
 $config = json_decode(get_config('local_softwarewarning', 'support'));
 
 $PAGE->requires->js_call_amd('local_softwarewarning/browserconstraintsui', 'init',
-    [$config, banner::BANNERS, ['IE', 'Chrome', 'Firefox', 'Safari', 'Opera']]);
+    [$config, banner::BANNERS]);
 
 echo $OUTPUT->header();
 
