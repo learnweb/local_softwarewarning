@@ -69,14 +69,22 @@ body.path-admin-local-softwarewarning #local_softwarewarning-config .form-contro
     width: auto;
 }
 
-body.path-admin-local-softwarewarning #local_softwarewarning-config .sw-onerule {
+body.path-admin-local-softwarewarning #local_softwarewarning-config .sw-singlerule {
     display: none;
 }
 
-body.path-admin-local-softwarewarning #local_softwarewarning-config > *[data-sw-onerule="true"] .sw-onerule {
+body.path-admin-local-softwarewarning #local_softwarewarning-config > *[data-sw-singlerule="true"] .sw-singlerule {
     display: unset;
 }
 
-body.path-admin-local-softwarewarning #local_softwarewarning-config > *[data-sw-onerule="true"] .sw-multirule {
+body.path-admin-local-softwarewarning #local_softwarewarning-config > *[data-sw-singlerule="true"] .sw-multirule {
     display: none;
+}
+
+body.path-admin-local-softwarewarning #local_softwarewarning-config > *[data-sw-empty="true"] > * {
+    opacity: 0.7;
+}
+
+body.path-admin-local-softwarewarning #local_softwarewarning-config > *[data-sw-empty="false"] .sw-version[data-sw-empty="true"] {
+    opacity: 0.7;
 }

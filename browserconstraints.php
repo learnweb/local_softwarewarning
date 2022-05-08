@@ -35,8 +35,7 @@ $PAGE->requires->js_call_amd('local_softwarewarning/browserconstraintsui', 'init
 
 echo $OUTPUT->header();
 
-$context = json_decode(file_get_contents(__DIR__ . '/test.json'));
+echo html_writer::div('', '', ['id' => 'local_softwarewarning-anchor']);
 
-echo $OUTPUT->render_from_template('local_softwarewarning/browserconfig', $context);
 
 echo $OUTPUT->footer();

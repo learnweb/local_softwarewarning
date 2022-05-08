@@ -24,26 +24,26 @@
       "closable": false
     }
 }}
-<div data-sw-index="{{i}}" id="sw-{{i}}" data-sw-onerule="{{#issinglerule}}true{{/issinglerule}}{{^issinglerule}}false{{/issinglerule}}">
+<div id="sw-{{i}}" data-sw-singlerule="{{#issinglerule}}true{{/issinglerule}}{{^issinglerule}}false{{/issinglerule}}"
+     class="sw-browser" data-sw-empty="{{^browsername}}true{{/browsername}}{{#browsername}}false{{/browsername}}">
     <div class="py-2">
         <label for='sw-{{i}}-name' class='col-sm-3'>Browsername</label>
         <div class="d-inline col-sm-9">
-            <input class='col-sm-9 form-control' type='text' id='sw-{{i}}-name' size='30' value="{{browsername}}">
+            <input class='col-sm-9 form-control' type='text' id='sw-{{i}}-name' data-sw-type="name" size='30' value="{{browsername}}">
         </div>
     </div>
     <div class="py-2">
-        <label for='sw-{{i}}-allcheck' class='col-sm-3'>Same banner for all versions of this
-            Browser?</label>
+        <label for='sw-{{i}}-issinglerule' class='col-sm-3'>Same banner for all versions of this Browser?</label>
         <div class="d-inline col-sm-9">
-            <input type='checkbox' id='sw-{{i}}-allcheck' class="custom-checkbox" {{#issinglerule}}checked{{/issinglerule}}>
+            <input type='checkbox' id='sw-{{i}}-issinglerule' data-sw-type="issinglerule" class="custom-checkbox" {{#issinglerule}}checked{{/issinglerule}}>
         </div>
     </div>
-    <div class="py-2 pb-2 sw-onerule">
-        <label for='sw-{{i}}-onerule' class='col-sm-3'>Banner for all versions of Browser</label>
+    <div class="py-2 pb-2 sw-singlerule">
+        <label for='sw-{{i}}-singlerule' class='col-sm-3'>Banner for all versions of Browser</label>
         <div class="d-inline col-sm-9">
-            <select class="custom-select" id="sw-{{i}}-onerule" {{#singlebanner}}data-sw-selected="{{singlebanner}}"{{/singlebanner}}>
+            <select class="custom-select" id="sw-{{i}}-singlerule" data-sw-type="singlerule" {{#singlebanner}}data-sw-selected="{{singlebanner}}"{{/singlebanner}}>
                 {{# banners }}
-                <option>{{ . }}</option>
+                <option value="{{.}}">{{ . }}</option>
                 {{/ banners }}
             </select>
         </div>
@@ -55,5 +55,8 @@
                 {{> local_softwarewarning/browserconfig_version }}
             {{/ multirulebanners }}
         </div>
+    </div>
+    <div class="col-sm-12 py-2">
+        <a class="sw-delete-browser">Remove this Browserconfig</a>
     </div>
 </div>
