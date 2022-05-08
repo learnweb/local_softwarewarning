@@ -143,7 +143,7 @@ function transformConfig(config) {
     }
     browsers.push({
         browsername: '',
-        issinglerule: true,
+        issinglerule: false,
         singlebanner: "unrecognized",
         multirulebanners: [{
             version: "",
@@ -167,7 +167,7 @@ async function appendEmptyBrowserElement() {
     const node = await renderTemplate('local_softwarewarning/browserconfig_browser', {
         "banners": bannertypes,
         "browsername": "",
-        "issinglerule": true,
+        "issinglerule": false,
         "singlebanner": "unrecognized",
         "multirulebanners": [
             {
