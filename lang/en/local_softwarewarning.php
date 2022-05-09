@@ -31,6 +31,7 @@ $string['setting:bannertextfor'] = 'Text for banner "<i>{$a}</i>"';
 $string['setting:bannerurlfor'] = 'URL for banner "<i>{$a}</i>"';
 $string['setting:bannerclosablefor'] = 'Should banner "<i>{$a}</i>" be closable?';
 $string['setting:bannerseverityfor'] = 'Severity (color) for banner "<i>{$a}</i>"';
+$string['generalsettings'] = 'General settings';
 $string['bannername:unrecognized'] = 'Unrecognized';
 $string['bannername:deprecated'] = 'Deprecated';
 $string['bannername:unsupported'] = 'Unsupported';

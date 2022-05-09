@@ -30,7 +30,7 @@ global $ADMIN;
 if ($hassiteconfig) {
     $category = new admin_category('local_softwarewarning_category', get_string('pluginname', 'local_softwarewarning'));
     $ADMIN->add('localplugins', $category);
-    $settings = new admin_settingpage('local_softwarewarning', get_string('settings'));
+    $settings = new admin_settingpage('local_softwarewarning', get_string('generalsettings', 'local_softwarewarning'));
     $ADMIN->add('local_softwarewarning_category', $settings);
 
     $ADMIN->add('local_softwarewarning_category', new admin_externalpage('local_softwarewarning_browserconstraints',
