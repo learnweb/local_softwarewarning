@@ -45,29 +45,31 @@ if ($action) {
 
 echo $OUTPUT->header();
 
-echo $OUTPUT->heading('Test banners!');
+echo $OUTPUT->heading(get_string('admin:test:heading', 'local_softwarewarning'));
 
 $mform->display();
 
 $button = new single_button(new moodle_url($PAGE->url, ['action' => 'reset']),
-        'Reset banner to calculated');
+        get_string('admin:test:reset-banner', 'local_softwarewarning'));
 echo '<br>';
 echo $OUTPUT->render($button);
 
 echo '<br><br><br>';
 
-echo "<pre>get_browser() returns: \n" . json_encode($browser, JSON_PRETTY_PRINT) . '</pre>';
+echo "<pre>" . get_string('admin:test:getbrowser-returns', 'local_softwarewarning') .
+    "\n" . json_encode($browser, JSON_PRETTY_PRINT) . '</pre>';
 if ($browser) {
     $bannertype = \local_softwarewarning\local\banner_manager::decide_banner_type($browser->browser, $browser->majorver);
-    echo "=> Your current Browser is " . $browser->browser . ", version " . $browser->majorver .
-        ", so your calculated banner would be: <b>" . $bannertype . "<b>";
+    echo "=> " . get_string('admin:test:current-browser-version', 'local_softwarewarning', [
+        'browser' => $browser->browser, 'version' => $browser->majorver, 'banner' => $bannertype
+        ]);
 } else {
-    echo "Your browser could not be determined!<br>";
+    echo get_string('admin:test:browser-not-determined', 'local_softwarewarning') . "<br>";
     $ini = ini_get('browscap');
     if ($ini) {
-        echo "browcap setting in php ini files is set to ". $ini;
+        echo get_string('admin:test:browscap-set-to', 'local_softwarewarning', $ini);
     } else {
-        echo "browcap setting in php ini files is not set!";
+        echo get_string('admin:test:browscap-not-set', 'local_softwarewarning');
     }
 }
 echo $OUTPUT->footer();

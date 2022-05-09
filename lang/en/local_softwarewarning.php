@@ -38,3 +38,21 @@ $string['testpage'] = 'Testing page';
 $string['banner'] = 'Banner';
 $string['setbrowserconstraints'] = 'Set Browserconstraints';
 $string['download_browscap'] = 'Download the browscap.ini';
+
+// Strings for test page.
+$string['admin:test:heading'] = 'Test banners!';
+$string['admin:test:reset-banner'] = 'Reset banner to calculated';
+$string['admin:test:getbrowser-returns'] = 'get_browser() returns: ';
+$string['admin:test:current-browser-version'] = 'Your current browser is \'{$a->browser}\', version \'{$a->version}\', so your calculated banner would be: <b>{$a->banner}</b>';
+$string['admin:test:browser-not-determined'] = 'Your browser could not be determined!';
+$string['admin:test:browscap-set-to'] = 'The browcap setting in php ini files is set to {$a}';
+$string['admin:test:browscap-not-set'] = 'The browcap setting in php ini files is not set!';
+
+// String for browser constraints.
+$string['admin:const:browsername'] = 'Browsername';
+$string['admin:const:issinglerule'] = 'Same banner for all versions of this browser?';
+$string['admin:const:banner-for-all'] = 'Banner for all versions of browser';
+$string['admin:const:banner-for-different'] = 'Banner for different versions of browsers:';
+$string['admin:const:remove-browserconfig'] = 'Remove this browserconfig';
+$string['admin:const:below-version'] = 'Below version (inclusive)';
+$string['admin:const:set-banner'] = 'set banner';
