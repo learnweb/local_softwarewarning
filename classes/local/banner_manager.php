@@ -119,7 +119,12 @@ class banner_manager {
      * @return \stdClass|null the banner
      */
     public static function get_banner() {
+        global $PAGE;
         if (get_config('local_softwarewarning', 'enabled') !== '1') {
+            return null;
+        }
+        if (!in_array($PAGE->pagelayout, ['base', 'standard', 'course', 'coursecategory', 'incourse', 'frontpage',
+            'admin', 'mycourses', 'mydashboard', 'mypublic', 'report'])) {
             return null;
         }
         $cache = \cache::make('local_softwarewarning', 'banner');
