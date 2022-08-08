@@ -42,23 +42,26 @@ export function init() {
     }
     window.onresize = onResize;
     // Setup close button.
-    document.querySelector('button.close[data-dismiss="banner"]').onclick = (e) => {
-        e.preventDefault();
-        isenabled = false;
-        document.getElementById('banner-parent').remove();
-        document.body.classList.remove('withbanner');
-        document.cookie = `disablebrowserwarn=true` +
-            `;path=${new URL(M.cfg.wwwroot).pathname};SameSite=strict`;
-        if (iswwutheme) {
-            navbar.style.top = null;
-        } else {
-            document.body.style.height = null;
-            document.body.style['-ms-transform'] = null;
-            document.body.style['-webkit-transform'] = null;
-            document.body.style['-moz-transform'] = null;
-            document.body.style.transform = null;
-        }
-    };
+    const closebutton = document.querySelector('button.close[data-dismiss="banner"]');
+    if (closebutton) {
+        closebutton.onclick = (e) => {
+            e.preventDefault();
+            isenabled = false;
+            document.getElementById('banner-parent').remove();
+            document.body.classList.remove('withbanner');
+            document.cookie = `disablebrowserwarn=true` +
+                `;path=${new URL(M.cfg.wwwroot).pathname};SameSite=strict`;
+            if (iswwutheme) {
+                navbar.style.top = null;
+            } else {
+                document.body.style.height = null;
+                document.body.style['-ms-transform'] = null;
+                document.body.style['-webkit-transform'] = null;
+                document.body.style['-moz-transform'] = null;
+                document.body.style.transform = null;
+            }
+        };
+    }
     onResize();
 }
 
