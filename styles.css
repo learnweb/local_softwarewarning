@@ -1,0 +1,109 @@
+body.withbanner.theme-wwu2019 #banner-parent .fill-element {
+    width: 100%;
+    height: 40px;
+    flex-shrink: 0;
+}
+
+body.withbanner.theme-wwu2019 nav#main-menu {
+    top: 40px;
+}
+
+body.withbanner.theme-boost {
+    height: calc(100% - 40px);
+    -ms-transform: translateY(40px);
+    -webkit-transform: translateY(40px);
+    -moz-transform: translateY(40px);
+    transform: translateY(40px);
+    overflow: hidden;
+}
+
+body.withbanner.theme-boost #banner-parent {
+    z-index: 1035;
+    -ms-transform: translateY(-40px);
+    -webkit-transform: translateY(-40px);
+    -moz-transform: translateY(-40px);
+    transform: translateY(-40px);
+}
+
+body.withbanner.theme-boost.ie .navbar.fixed-top {
+    /* IE: Just ... don't ask */
+    position: absolute;
+}
+
+body.withbanner .softwarewarning-banner {
+    position: fixed;
+    display: block;
+    z-index: 100;
+    width: 100%;
+    font-size: 1.1em;
+    text-align: center;
+    padding: 10px 44px 10px 10px;
+}
+
+body.withbanner .softwarewarning-banner .close {
+    color: inherit;
+    padding: 8px 16px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.softwarewarning-banner[data-severity="info"] {
+    background-color: #107900;
+    color: #fff;
+}
+
+.softwarewarning-banner[data-severity="warn"] {
+    background-color: gold;
+    color: #000;
+}
+
+.softwarewarning-banner[data-severity="error"] {
+    background-color: #b70000;
+    color: #fff;
+}
+
+/* Admin panel */
+
+body.path-admin-local-softwarewarning #local_softwarewarning-config > * {
+    margin: 0 -15px;
+    padding: 1.5em 0;
+}
+
+body.path-admin-local-softwarewarning #local_softwarewarning-config > :not(:last-child) {
+    border-bottom: 1px solid #777;
+}
+
+body.path-admin-local-softwarewarning #local_softwarewarning-config .form-control {
+    display: inline;
+}
+
+body.path-admin-local-softwarewarning #local_softwarewarning-config .form-control[size] {
+    width: auto;
+}
+
+body.path-admin-local-softwarewarning #local_softwarewarning-config .sw-singlerule {
+    display: none;
+}
+
+body.path-admin-local-softwarewarning #local_softwarewarning-config > *[data-sw-singlerule="true"] .sw-singlerule {
+    display: unset;
+}
+
+body.path-admin-local-softwarewarning #local_softwarewarning-config > *[data-sw-singlerule="true"] .sw-multirule {
+    display: none;
+}
+
+body.path-admin-local-softwarewarning #local_softwarewarning-config > *[data-sw-empty="true"] > * {
+    opacity: 0.7;
+}
+
+body.path-admin-local-softwarewarning #local_softwarewarning-config > *[data-sw-empty="false"] .sw-version[data-sw-empty="true"] {
+    opacity: 0.7;
+}
+
+body.path-admin-local-softwarewarning #local_softwarewarning-config .sw-delete-browser,
+body.path-admin-local-softwarewarning #local_softwarewarning-config .sw-delete-version {
+    cursor: pointer;
+}

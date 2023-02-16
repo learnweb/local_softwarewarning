@@ -1,0 +1,44 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_softwarewarning/browserconfigmultirule
+
+    Example context (json):
+    {
+      "severity": "error",
+      "text": "Your browser is not supported!",
+      "closable": false
+    }
+}}
+<div class="py-2 sw-version" data-sw-empty="{{^version}}true{{/version}}{{#version}}false{{/version}}">
+    <label>
+        {{#str}}admin:const:below-version, local_softwarewarning{{/str}}
+        <input class="form-control mx-2" size="10" type="number" data-sw-type="multi-version" value="{{version}}">
+    </label>
+    <label>
+        {{#str}}admin:const:set-banner, local_softwarewarning{{/str}}
+        <select class="custom-select mx-2" data-sw-type="multi-banner"
+                {{#banner}}data-sw-selected="{{banner}}"{{/banner}}>
+            {{# banners }}
+                <option value="{{.}}">{{ . }}</option>
+            {{/ banners }}
+        </select>
+    </label>
+    <span class="sw-delete-version">
+    {{#pix}} t/delete, core, Delete this section {{/pix}}
+    </span>
+</div>

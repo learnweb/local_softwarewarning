@@ -1,0 +1,62 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_softwarewarning/browserconfig
+
+    Example context (json):
+    {
+      "severity": "error",
+      "text": "Your browser is not supported!",
+      "closable": false
+    }
+}}
+<div data-sw-singlerule="{{#issinglerule}}true{{/issinglerule}}{{^issinglerule}}false{{/issinglerule}}"
+     class="sw-browser" data-sw-empty="{{^browsername}}true{{/browsername}}{{#browsername}}false{{/browsername}}">
+    <div class="py-2">
+        <label class='col-sm-3'>{{#str}}admin:const:browsername, local_softwarewarning{{/str}}</label>
+        <div class="d-inline col-sm-9">
+            <input class='col-sm-9 form-control' type='text' data-sw-type="name" size='30' value="{{browsername}}">
+        </div>
+    </div>
+    <div class="py-2">
+        <label class='col-sm-3'>{{#str}}admin:const:issinglerule, local_softwarewarning{{/str}}</label>
+        <div class="d-inline col-sm-9">
+            <input type='checkbox' data-sw-type="issinglerule" class="custom-checkbox" {{#issinglerule}}checked{{/issinglerule}}>
+        </div>
+    </div>
+    <div class="py-2 pb-2 sw-singlerule">
+        <label class='col-sm-3'>{{#str}}admin:const:banner-for-all, local_softwarewarning{{/str}}</label>
+        <div class="d-inline col-sm-9">
+            <select class="custom-select" data-sw-type="singlerule" {{#singlebanner}}data-sw-selected="{{singlebanner}}"{{/singlebanner}}>
+                {{# banners }}
+                <option value="{{.}}">{{ . }}</option>
+                {{/ banners }}
+            </select>
+        </div>
+    </div>
+    <div class="sw-multirule">
+        <div class="col-sm-12 py-2">{{#str}}admin:const:banner-for-different, local_softwarewarning{{/str}}</div>
+        <div class="col-sm-12 px-5 sw-multirule-anchor">
+            {{# multirulebanners }}
+                {{> local_softwarewarning/browserconfig_version }}
+            {{/ multirulebanners }}
+        </div>
+    </div>
+    <div class="col-sm-12 py-2">
+        <a class="sw-delete-browser">{{#str}}admin:const:remove-browserconfig, local_softwarewarning{{/str}}</a>
+    </div>
+</div>
